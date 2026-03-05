@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 2,
+  "settings": {
+    "defaultCron": "0 17 * * *",
+    "defaultTimezone": "Europe/Madrid",
+    "maxSnapshotsPerJob": 30,
+    "maxHistoryPerJob": 80,
+    "autoRunOnStartup": false
+  },
+  "jobs": [
+    {
+      "id": "default",
+      "name": "Default Job",
+      "airtableUrl": "https://airtable.com/app53PsYpHxJW61l3/shrD9UEKusc6BYWWc/tbl5zkv6T7WSivZ89",
+      "outputPath": "./data/jobs/default/current.json",
+      "enabled": true,
+      "schedule": {
+        "enabled": true,
+        "cron": "0 17 * * *",
+        "timezone": "Europe/Madrid"
+      }
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+# Daily forced export at 17:00 Europe/Madrid
+CRON_TZ=Europe/Madrid
+0 17 * * * cd /opt/airtable-json-ops && /usr/bin/npm run export:once >> /var/log/airtable-json-ops.log 2>&1

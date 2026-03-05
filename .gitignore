@@ -1,0 +1,9 @@
+node_modules/
+data/
+
+.DS_Store
+*.log
+
+# Local extraction/debug artifacts
+rendered.html
+sample.msgpack

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Airtable JSON Ops Console</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="hero panel">
+        <div>
+          <h1>Airtable JSON Ops Console</h1>
+          <p>
+            Configure everything from here: jobs, schedules, retention, run history,
+            snapshots, and rollbacks. No Airtable API keys and no CLI setup required for day-to-day use.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <button id="refreshBtn" class="btn ghost">Refresh</button>
+          <button id="runAllBtn" class="btn">Run All Enabled Jobs</button>
+        </div>
+      </section>
+
+      <section class="stats" id="statsGrid"></section>
+
+      <section class="panel setup-guide">
+        <h2>Quick Setup</h2>
+        <ol>
+          <li>Set default schedule and retention in Workspace Settings.</li>
+          <li>Create one or more jobs with Airtable URL and output JSON path.</li>
+          <li>Run Preview to verify extraction, then Run now to generate output.</li>
+          <li>Leave schedule enabled to refresh data automatically every day.</li>
+        </ol>
+      </section>
+
+      <section class="workspace">
+        <aside class="panel side-panel">
+          <h2>Workspace Settings</h2>
+          <form id="settingsForm" class="stack">
+            <label>
+              Default cron
+              <input id="settingsDefaultCron" required />
+            </label>
+            <p class="hint">Example: <code>0 17 * * *</code> (17:00 daily).</p>
+
+            <label>
+              Default timezone
+              <input id="settingsDefaultTimezone" required />
+            </label>
+
+            <label>
+              Max snapshots per job
+              <input id="settingsMaxSnapshots" type="number" min="1" max="500" required />
+            </label>
+
+            <label>
+              Max history entries per job
+              <input id="settingsMaxHistory" type="number" min="1" max="1000" required />
+            </label>
+
+            <label class="checkbox-row">
+              <input id="settingsAutoRun" type="checkbox" />
+              Auto-run enabled jobs on startup
+            </label>
+
+            <button class="btn" type="submit">Save Settings</button>
+          </form>
+
+          <hr class="divider" />
+
+          <h2>Create Job</h2>
+          <form id="jobForm" class="stack">
+            <label>
+              Name
+              <input id="jobName" required placeholder="Weekly Careers Feed" />
+            </label>
+
+            <label>
+              Job ID (auto-generated)
+              <input id="jobIdPreview" readonly />
+            </label>
+
+            <label>
+              Airtable public URL
+              <input id="jobUrl" required placeholder="https://airtable.com/app.../shr.../tbl..." />
+            </label>
+
+            <label>
+              Output JSON path (server)
+              <input id="jobOutput" required placeholder="/var/www/site/data/jobs.json" />
+            </label>
+
+            <label class="checkbox-row">
+              <input id="jobEnabled" type="checkbox" checked />
+              Job enabled
+            </label>
+
+            <label class="checkbox-row">
+              <input id="jobScheduleEnabled" type="checkbox" checked />
+              Schedule enabled
+            </label>
+
+            <label>
+              Cron
+              <input id="jobCron" value="0 17 * * *" />
+            </label>
+
+            <label>
+              Timezone
+              <input id="jobTz" value="Europe/Madrid" />
+            </label>
+
+            <button class="btn" type="submit">Create Job</button>
+          </form>
+        </aside>
+
+        <section class="panel">
+          <div class="jobs-head">
+            <h2>Jobs</h2>
+            <input id="jobFilter" placeholder="Filter by name, id, or path..." />
+          </div>
+          <div id="jobsList" class="jobs-list"></div>
+        </section>
+      </section>
+
+      <section class="panel">
+        <h2>Console</h2>
+        <pre id="console">Loading dashboard...</pre>
+      </section>
+    </main>
+
+    <dialog id="editDialog" class="edit-dialog">
+      <form id="editJobForm" class="stack">
+        <div class="dialog-head">
+          <h3>Edit Job</h3>
+          <button type="button" id="closeEditBtn" class="btn ghost small">Close</button>
+        </div>
+        <input id="editJobId" type="hidden" />
+
+        <label>
+          Name
+          <input id="editJobName" required />
+        </label>
+
+        <label>
+          Airtable public URL
+          <input id="editJobUrl" required />
+        </label>
+
+        <label>
+          Output JSON path
+          <input id="editJobOutput" required />
+        </label>
+
+        <label class="checkbox-row">
+          <input id="editJobEnabled" type="checkbox" />
+          Job enabled
+        </label>
+
+        <label class="checkbox-row">
+          <input id="editJobScheduleEnabled" type="checkbox" />
+          Schedule enabled
+        </label>
+
+        <label>
+          Cron
+          <input id="editJobCron" />
+        </label>
+
+        <label>
+          Timezone
+          <input id="editJobTz" />
+        </label>
+
+        <div class="job-actions">
+          <button type="submit" class="btn">Save Changes</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

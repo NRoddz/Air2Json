@@ -1,0 +1,15 @@
+[Unit]
+Description=Airtable JSON Ops Console
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/airtable-json-ops
+EnvironmentFile=/opt/airtable-json-ops/.env
+ExecStart=/usr/bin/node /opt/airtable-json-ops/src/server.js
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
