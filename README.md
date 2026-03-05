@@ -146,4 +146,3 @@ CRON_TZ=Europe/Madrid
 - Public Airtable HTML extraction can change if Airtable updates frontend internals.
 - Snapshots are stored at `data/snapshots/<jobId>/`.
 - Run history is stored at `data/state/runs.json`.
-# Air2Json
