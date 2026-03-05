@@ -2,8 +2,6 @@
 
 Production-oriented exporter that pulls public Airtable views (no Airtable API keys), builds clean JSON feeds, and keeps run history/snapshots for rollback.
 
-## 10x upgrade highlights
-
 - Multi-job support (`config/jobs.json`)
 - Per-job schedules (cron + timezone)
 - Run history with diff stats (`added/updated/removed`)
